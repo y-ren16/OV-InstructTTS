@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OV-InstructTTS: Official Demo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>OV-InstructTTS: Towards Open-Vocabulary Instruct Text-to-Speech</h1>
+             <p class="authors">
+                Yong Ren¹,², Jiangyan Yi³,⁴,†, Jianhua Tao³,⁴,¹, Haiyang Sun¹, Zhengqi Wen¹, Hao Gu¹,², Le Xu³,¹, Ye Bai³
+            </p>
+            <p class="affiliations">
+                ¹The State Key Laboratory of Multimodal Artificial Intelligence Systems, Institute of Automation, Chinese Academy of Sciences<br>
+                ²School of Artificial Intelligence, University of Chinese Academy of Sciences<br>
+                ³Department of Automation, Tsinghua University<br>
+                ⁴Beijing National Research Center for Information Science and Technology, Tsinghua University
+            </p>
+            <div class="links">
+                 <a href="https://huggingface.co/datasets/Insects/ContextSpeech" class="link-button">🤗 Dataset</a>
+                 <a href="https://github.com/y-ren16/OV-InstructTTS" class="link-button">💻 Code</a>
+                 <a href="https://arxiv.org/abs/your-paper-id" class="link-button">📄 Paper</a>
+            </div>
+        </header>
+
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <p>
+                Instruct Text-to-Speech (InstructTTS) leverages natural language descriptions as style prompts to guide speech synthesis. However, existing InstructTTS methods mainly rely on a direct combination of audio-related labels or their diverse rephrasings, making it difficult to handle flexible, high-level instructions. Such rigid control is insufficient for users such as content creators who wish to steer generation with descriptive instructions. To address these constraints, we introduce OV-InstructTTS, a new paradigm for open-vocabulary InstructTTS. We propose a comprehensive solution comprising a newly curated dataset, OV-Speech, and a novel reasoning-driven framework. The OV-Speech dataset pairs speech with open-vocabulary instructions, each augmented with a reasoning process that connects high-level instructions to acoustic features. The reasoning-driven framework infers emotional, acoustic, and paralinguistic information from open-vocabulary instructions before synthesizing speech. Evaluations show that this reasoning-driven approach significantly improves instruction-following fidelity and speech expressiveness. We believe this work can inspire the next user-friendly InstructTTS systems with stronger generalization and real-world applicability.
+            </p>
+        </section>
+
+        <section id="dataset-and-framework">
+            <h2>Dataset and Framework</h2>
+            <p>
+                To enable open-vocabulary InstructTTS, we constructed the <strong>OV-Speech</strong> dataset. Built upon the 476.8-hour <a href="https://huggingface.co/datasets/Insects/ContextSpeech">ContextSpeech</a> corpus, our dataset construction follows a five-stage pipeline. The stages are: <strong>1. Contextual Information Extraction</strong> from novels; <strong>2. Open-Vocabulary Instruction Generation</strong> using an LLM to mimic a director's instructions; <strong>3. Consistency Filtering</strong> to ensure alignment between instructions and audio; <strong>4. Reasoning Process Annotation</strong> to bridge high-level instructions with low-level acoustic features; and <strong>5. Paralinguistic-Aware Transcription Annotation</strong> to enrich the transcription with paralinguistic tags.
+            </p>
+            <p>Our proposed framework, <strong>OV-InstructTTS-TEP</strong>, first generates a textual reasoning process from the open-vocabulary instruction, then produces an interleaved sequence of enriched text and audio tokens for synthesis. This reasoning-driven approach is key to interpreting complex instructions and generating expressive speech.</p>
+            <img src="assets/images/ov.png" alt="Framework Architecture of OV-InstructTTS-TEP" class="framework-image">
+        </section>
+
+        <section id="demo">
+            <h2>Demo</h2>
+            <div class="table-container-vertical">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ground Truth</th>
+                            <th>CosyVoice2</th>
+                            <th>GPT4o</th>
+                            <th>Higgs-Audio-V2</th>
+                            <th>Step-Audio-2-mini</th>
+                            <th class="ours-header">OV-InstructTTS-TEP (Ours)</th>
+                        </tr>
+                    </thead>
+                    <tr class="text-row">
+                        <td colspan="6">
+                            <div class="sample-info">
+                                <span class="sample-id">Sample 1</span>
+                                <p class="instruction"><strong>Instruction:</strong> "在法则震颤的神庙前，一个高傲冷漠的强大存在，用俯视众生的姿态宣告："</p>
+                                <p class="transcription"><strong>Transcription:</strong> "不好意思，本大王从来不记无关人等，还请做一下自我介绍。"</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="audio-row">
+                        <td><audio controls src="assets/audio/GroundTruth/0000000041_0000000707_instance1.wav"></audio></td>
+                        <td><audio controls src="assets/audio/CosyVoice2-0p5B/0000000041_0000000707_instance1.wav"></audio></td>
+                        <td><audio controls src="assets/audio/GPT4o-vc/0000000041_0000000707_instance1.wav"></audio></td>
+                        <td><audio controls src="assets/audio/huggs-audio-vc/0000000041_0000000707_instance1.wav"></audio></td>
+                        <td><audio controls src="assets/audio/Step-Audio-2-mini/0000000041_0000000707_instance1.wav"></audio></td>
+                        <td><audio controls src="assets/audio/OV-TTS-Thinking-Emo-Para/0000000041_0000000707_instance1.wav"></audio></td>
+                    </tr>
+                        <tr class="text-row">
+                            <td colspan="6">
+                                <div class="sample-info">
+                                    <span class="sample-id">Sample 2</span>
+                                    <p class="instruction"><strong>Instruction:</strong> "在硝烟弥漫的冰面战场，面对铁骑溃败与伤亡过半的现实，刚愎自用的将领咬牙怒吼着命令决死冲锋："</p>
+                                    <p class="transcription"><strong>Transcription:</strong> "萧尚书，如今我等切不可瞻前顾后。唯一的生机就是决死一搏，将这些逆贼踏平！"</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="audio-row">
+                            <td><audio controls src="assets/audio/GroundTruth/0000000038_0000002389_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/CosyVoice2-0p5B/0000000038_0000002389_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/GPT4o-vc/0000000038_0000002389_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/huggs-audio-vc/0000000038_0000002389_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/Step-Audio-2-mini/0000000038_0000002389_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/OV-TTS-Thinking-Emo-Para/0000000038_0000002389_instance1.wav"></audio></td>
+                        </tr>
+                        <tr class="text-row">
+                            <td colspan="6">
+                                <div class="sample-info">
+                                    <span class="sample-id">Sample 3</span>
+                                    <p class="instruction"><strong>Instruction:</strong> "在悬浮光球与倒挂和尚的压迫空间中，面对周楚豪的质问和乾武国代表的挑衅，一个自负炼丹师说："</p>
+                                    <p class="transcription"><strong>Transcription:</strong> "周楚豪，你不要欺人太甚！"</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="audio-row">
+                            <td><audio controls src="assets/audio/GroundTruth/0000000041_0000002413_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/CosyVoice2-0p5B/0000000041_0000002413_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/GPT4o-vc/0000000041_0000002413_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/huggs-audio-vc/0000000041_0000002413_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/Step-Audio-2-mini/0000000041_0000002413_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/OV-TTS-Thinking-Emo-Para/0000000041_0000002413_instance1.wav"></audio></td>
+                        </tr>
+                        <tr class="text-row">
+                            <td colspan="6">
+                                <div class="sample-info">
+                                    <span class="sample-id">Sample 4</span>
+                                    <p class="instruction"><strong>Instruction:</strong> "在血腥与佛光交织的神域战场废墟中，一个秉持佛门正统、态度强硬的僧侣代表说："</p>
+                                    <p class="transcription"><strong>Transcription:</strong> "苏大王，你所谓的尸体在哪里？"</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="audio-row">
+                            <td><audio controls src="assets/audio/GroundTruth/0000000041_0000002562_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/CosyVoice2-0p5B/0000000041_0000002562_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/GPT4o-vc/0000000041_0000002562_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/huggs-audio-vc/0000000041_0000002562_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/Step-Audio-2-mini/0000000041_0000002562_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/OV-TTS-Thinking-Emo-Para/0000000041_0000002562_instance1.wav"></audio></td>
+                        </tr>
+                        <tr class="text-row">
+                            <td colspan="6">
+                                <div class="sample-info">
+                                    <span class="sample-id">Sample 5</span>
+                                    <p class="instruction"><strong>Instruction:</strong> "昏暗烛光下冷酷权谋家封野站在染血衣袖前，用爱欲包裹利刃的语气说："</p>
+                                    <p class="transcription"><strong>Transcription:</strong> "我是你的夫君。 当我二人为敌时，你该帮谁？"</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="audio-row">
+                            <td><audio controls src="assets/audio/GroundTruth/0000000071_0000001770_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/CosyVoice2-0p5B/0000000071_0000001770_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/GPT4o-vc/0000000071_0000001770_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/huggs-audio-vc/0000000071_0000001770_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/Step-Audio-2-mini/0000000071_0000001770_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/OV-TTS-Thinking-Emo-Para/0000000071_0000001770_instance1.wav"></audio></td>
+                        </tr>
+                        <tr class="text-row">
+                            <td colspan="6">
+                                <div class="sample-info">
+                                    <span class="sample-id">Sample 6</span>
+                                    <p class="instruction"><strong>Instruction:</strong> "在昏暗的卧室里，药草气息弥漫，压抑的沉默中，一位刚直清正、深谋远虑的父亲说："</p>
+                                    <p class="transcription"><strong>Transcription:</strong> "那小殿下也非池中之物，希望他不是记仇的人吧。"</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="audio-row">
+                            <td><audio controls src="assets/audio/GroundTruth/0000000071_0000000084_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/CosyVoice2-0p5B/0000000071_0000000084_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/GPT4o-vc/0000000071_0000000084_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/huggs-audio-vc/0000000071_0000000084_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/Step-Audio-2-mini/0000000071_0000000084_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/OV-TTS-Thinking-Emo-Para/0000000071_0000000084_instance1.wav"></audio></td>
+                        </tr>
+                        <tr class="text-row">
+                            <td colspan="6">
+                                <div class="sample-info">
+                                    <span class="sample-id">Sample 7</span>
+                                    <p class="instruction"><strong>Instruction:</strong> "在弥漫着灵力波动的大王山武馆门前，面对'地级下品'标识时，一个自负跋扈的天级武馆长老不屑地冷笑："</p>
+                                    <p class="transcription"><strong>Transcription:</strong> "我是来踢馆的！你是不是对踢馆有什么误解？"</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="audio-row">
+                            <td><audio controls src="assets/audio/GroundTruth/0000000041_0000001761_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/CosyVoice2-0p5B/0000000041_0000001761_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/GPT4o-vc/0000000041_0000001761_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/huggs-audio-vc/0000000041_0000001761_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/Step-Audio-2-mini/0000000041_0000001761_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/OV-TTS-Thinking-Emo-Para/0000000041_0000001761_instance1.wav"></audio></td>
+                        </tr>
+                        <tr class="text-row">
+                            <td colspan="6">
+                                <div class="sample-info">
+                                    <span class="sample-id">Sample 8</span>
+                                    <p class="instruction"><strong>Instruction:</strong> "在弥漫着丹香与白色丹云的炼丹房内，一个对炼丹术极端敬仰的狂信徒激动地喊道："</p>
+                                    <p class="transcription"><strong>Transcription:</strong> "大王！如果我没有猜错，您一定就是万中无一的炼丹天才！"</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="audio-row">
+                            <td><audio controls src="assets/audio/GroundTruth/0000000041_0000000220_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/CosyVoice2-0p5B/0000000041_0000000220_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/GPT4o-vc/0000000041_0000000220_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/huggs-audio-vc/0000000041_0000000220_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/Step-Audio-2-mini/0000000041_0000000220_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/OV-TTS-Thinking-Emo-Para/0000000041_0000000220_instance1.wav"></audio></td>
+                        </tr>
+                        <tr class="text-row">
+                            <td colspan="6">
+                                <div class="sample-info">
+                                    <span class="sample-id">Sample 9</span>
+                                    <p class="instruction"><strong>Instruction:</strong> "在烛火摇曳的中军帐内，帷帐低垂营造压迫感，一个习惯用理性克制情感的谋士，带着被现实所伤的隐忍说："</p>
+                                    <p class="transcription"><strong>Transcription:</strong> "你我之间，谈不上恨。"</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="audio-row">
+                            <td><audio controls src="assets/audio/GroundTruth/0000000071_0000002389_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/CosyVoice2-0p5B/0000000071_0000002389_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/GPT4o-vc/0000000071_0000002389_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/huggs-audio-vc/0000000071_0000002389_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/Step-Audio-2-mini/0000000071_0000002389_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/OV-TTS-Thinking-Emo-Para/0000000071_0000002389_instance1.wav"></audio></td>
+                        </tr>
+                        <tr class="text-row">
+                            <td colspan="6">
+                                <div class="sample-info">
+                                    <span class="sample-id">Sample 10</span>
+                                    <p class="instruction"><strong>Instruction:</strong> "在昏暗压抑的冥王领地内，面对挑衅的苏宇和哭泣的莫妮卡，一个极度自负且言语带嘲讽的人试图掩饰动摇，用威胁语气说："</p>
+                                    <p class="transcription"><strong>Transcription:</strong> "难怪敢这么猖狂，原来有所依仗！不过单凭肉身能翻起什么浪来？"</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="audio-row">
+                            <td><audio controls src="assets/audio/GroundTruth/0000000041_0000000686_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/CosyVoice2-0p5B/0000000041_0000000686_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/GPT4o-vc/0000000041_0000000686_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/huggs-audio-vc/0000000041_0000000686_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/Step-Audio-2-mini/0000000041_0000000686_instance1.wav"></audio></td>
+                            <td><audio controls src="assets/audio/OV-TTS-Thinking-Emo-Para/0000000041_0000000686_instance1.wav"></audio></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Yong Ren & Collaborators. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
