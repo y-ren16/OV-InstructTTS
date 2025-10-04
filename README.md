@@ -1,7 +1,7 @@
-# STA-V2A: Video-to-Audio Generation with Semantic and Temporal Alignment (ICASSP 2025)
+# OV-InstructTTS: Towards Open-Vocabulary Instruct Text-to-Speech
 
 <p align="center">
-        🤗 <a href="https://huggingface.co/y-ren16/OVSpeech">Hugging Face</a>&nbsp&nbsp | &nbsp&nbsp🖥️ <a href="https://y-ren16.github.io/OV-InstructTTS">Demo</a> | &nbsp&nbsp📑 <a href="https://arxiv.org/pdf/2510.00000">Paper</a>&nbsp&nbsp
+        &nbsp&nbsp🖥️ <a href="https://y-ren16.github.io/OV-InstructTTS">Demo</a> | 🤗 <a href="https://huggingface.co/y-ren16/OVSpeech">Hugging Face</a>&nbsp&nbsp |&nbsp&nbsp📑 <a href="https://arxiv.org/pdf/2510.00000">Paper</a>&nbsp&nbsp
 <br>
 
 ## 1. Introduction
