@@ -11,7 +11,7 @@ Instruct Text-to-Speech (InstructTTS) leverages natural language descriptions as
 - **Paradigm**: This paper proposes OV-InstructTTS, a novel paradigm that shifts instructTTS beyond its dependency on rephrased audio attributes, pushing controllable speech synthesis towards more flexible and user-friendly real-world applications.
 - **Dataset**: We construct OV-Speech, a large-scale dataset providing a foundation for this paradigm. It features open-vocabulary instructions derived from narrative context, reasoning chains that connect instructions to acoustics, and transcriptions enriched with paralinguistic tags.
 - **Method**: This paper proposes OV-InstructTTS-TEP, a novel reasoning-driven OV-InstructTTS framework based on LALM. Our method is designed to interpret open-ended instructions through a reasoning process to generate highly expressive speech that is consistent with the user's intent.
-- **Experiments**: Extensive experiments and ablation studies demonstrate the value of our dataset and the effectiveness of the OV-InstructTTS-TEP framework. LLM-a-a-judge and subjective evaluations confirm the consistency of synthesized speech with open-ended instructions.
+- **Experiments**: Extensive experiments and ablation studies demonstrate the value of our dataset and the effectiveness of the OV-InstructTTS-TEP framework. LLM-as-a-judge and subjective evaluations confirm the consistency of synthesized speech with open-ended instructions.
 
 <div align="center">
   <img src="assets/images/ov.png" alt="Architecture" width="800" />
