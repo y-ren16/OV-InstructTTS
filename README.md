@@ -61,4 +61,4 @@ python inf_ov_instructtts_examples.py
 
 ## 3. Acknowledgement
 
-This repo is based on [Step-Audio2](https://github.com/stepfun-ai/Step-Audio2). We highly appreciate their contributions to this community.
+This repo is based on [Step-Audio2](https://github.com/stepfun-ai/Step-Audio2) and [ContextSpeech](https://huggingface.co/datasets/Insects/ContextSpeech). We highly appreciate their contributions to this community.
